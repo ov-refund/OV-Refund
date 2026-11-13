@@ -1,0 +1,61 @@
+[
+  {
+    "tokenId": "00000000-0000-0000-0000-00000000000a",
+    "transactions": {
+      "numberOfTransactions": 4,
+      "serviceInfo": { "lastRefresh": "0", "isHealthy": true, "isUpdateInProgress": null, "failedSources": false },
+      "transactions": [
+        {
+          "id": "HB-FIXTURE-0000000000000000001",
+          "type": "JOURNEY", "typeCode": "ZU01", "typeDescription": "Treinreizen",
+          "subType": "JOURNEY", "subTypeCode": "ZTIF1", "description": "Treinreizen",
+          "timestamp": "2026-10-18T09:12:00Z", "amount": null,
+          "tokenIdentifier": "TOKEN-FIXTR", "tokenValue": "3528000000000000",
+          "product": { "code": "550", "name": "Fixture Product" },
+          "travelClass": 2, "source": "HB", "isInvoiced": false, "isRefund": false,
+          "journey": {
+            "travelClass": 2,
+            "departure": { "timestamp": "2026-10-18T09:12:00Z", "location": { "name": "Zwolle", "varCode": "750", "uicCode": "8400750" }, "eventSequenceId": "001" },
+            "arrival": { "timestamp": "2026-10-18T10:47:00Z", "location": { "name": "Groningen", "varCode": "320", "uicCode": "8400320" }, "eventSequenceId": "002" },
+            "carrier": { "code": "4", "name": "NS", "description": "Nederlandse Spoorwegen" },
+            "autocorrection": null,
+            "subscription": { "description": "FLEXWVR", "monthlyfee": 4100 }
+          },
+          "tariff": null, "initialFee": null, "productCode": "550"
+        },
+        {
+          "id": "HB-FIXTURE-0000000000000000002",
+          "type": "JOURNEY", "timestamp": "2026-10-20T08:00:00Z", "amount": 450,
+          "tokenValue": "3528000000000000",
+          "product": { "code": "550", "name": "Fixture Product" },
+          "travelClass": 2, "source": "HB",
+          "journey": {
+            "departure": { "timestamp": "2026-10-20T08:00:00Z", "location": { "name": "Arnhem Centraal", "uicCode": "8400071" } },
+            "arrival": { "timestamp": "2026-10-20T08:40:00Z", "location": { "name": "Doetinchem", "uicCode": "8400183" } },
+            "carrier": { "code": "12", "name": "AR", "description": "Other carrier" },
+            "subscription": null
+          }
+        },
+        {
+          "id": "RHINO-FIXTURE-3",
+          "type": "JOURNEY", "timestamp": "2026-11-01T18:30:00Z", "amount": null,
+          "tokenValue": "3528000000000000",
+          "product": { "code": "550", "name": "Fixture Product" },
+          "travelClass": null, "source": "RHINO",
+          "journey": {
+            "departure": { "timestamp": "2026-11-01T18:30:00Z", "location": { "name": "Utrecht Centraal", "uicCode": "8400621" } },
+            "arrival": null,
+            "carrier": { "code": "4", "name": "NS", "description": "Nederlandse Spoorwegen" },
+            "subscription": null
+          }
+        },
+        {
+          "id": "OVFIETS-FIXTURE-4",
+          "type": "RENTAL", "timestamp": "2026-11-07T15:40:00Z", "amount": 480,
+          "tokenValue": "3528000000000000",
+          "journey": null
+        }
+      ]
+    }
+  }
+]
