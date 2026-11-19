@@ -1,0 +1,20 @@
+{
+  "_comment": "NS delay-compensation rules for trips that were free under a 'Vrij' subscription: a fraction of the subscription's monthly price. Prices are 2nd class unless noted, per NS's yearly price list. Add a new row when NS changes prices; never edit old rows (older trips keep the price valid on their travel date).",
+  "fractions": {
+    "_source": "https://www.ns.nl/service-en-contact/geld-terug/vergoedingen-geld-terug-bij-vertraging (last changed 2025-12-10)",
+    "weekend_vrij": [12, 6],
+    "dal_vrij": [36, 18],
+    "altijd_vrij": [42, 21]
+  },
+  "monthly_prices": [
+    { "product": "weekend_vrij", "class": 2, "from": "2024-01-01", "cents": 3495, "source": "https://www.iamexpat.nl/expat-info/dutch-news/ns-ticket-prices-increase-over-11-percent-2025" },
+    { "product": "weekend_vrij", "class": 2, "from": "2025-01-01", "cents": 3710, "source": "https://www.iamexpat.nl/expat-info/dutch-news/ns-ticket-prices-increase-over-11-percent-2025" },
+    { "product": "weekend_vrij", "class": 2, "from": "2026-01-01", "cents": 3950, "source": "https://www.ns.nl/prijzen" },
+    { "product": "weekend_vrij", "class": 1, "from": "2026-01-01", "cents": 4995, "source": "https://www.ns.nl/prijzen" },
+    { "product": "dal_vrij", "class": 2, "from": "2025-01-01", "cents": 11995, "source": "https://www.iamexpat.nl/expat-info/dutch-news/ns-ticket-prices-increase-over-11-percent-2025" },
+    { "product": "dal_vrij", "class": 2, "from": "2026-01-01", "cents": 12795, "source": "https://www.ns.nl/prijzen" },
+    { "product": "dal_vrij", "class": 1, "from": "2026-01-01", "cents": 16995, "source": "https://www.ns.nl/prijzen" },
+    { "product": "altijd_vrij", "class": 2, "from": "2026-01-01", "cents": 39995, "source": "https://www.ns.nl/prijzen" },
+    { "product": "altijd_vrij", "class": 1, "from": "2026-01-01", "cents": 67990, "source": "https://www.ns.nl/prijzen" }
+  ]
+}
