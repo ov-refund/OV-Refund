@@ -1,0 +1,47 @@
+# Build outputs
+/target/
+src-tauri/target/
+/dist/
+node_modules/
+*.log
+
+# Sensitive local investigation data (never commit)
+.investigation/
+*.har
+*.cookies
+cookies*.json
+*-profile/
+profiles/
+screenshots/
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+*.db-wal
+.env
+.env.*
+secrets/
+artifacts/
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+src-tauri/gen/
+src-tauri/icons/source.png
+/target-b/
+
+# release output (installers, latest.json)
+/release/
+
+# Local secrets and private exports
+*.key
+*.sig
+latest.json
+*.ovrbackup
+ovrefund-diagnostics-*.json
+ovrefund-formtest-*.png
+bug-form-key*
+leak-terms.txt
+update-test-root/
+update-test-logs/

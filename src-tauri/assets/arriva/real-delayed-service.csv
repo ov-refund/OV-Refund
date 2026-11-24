@@ -1,0 +1,10 @@
+﻿Service:RDT-ID,Service:Date,Service:Type,Service:Company,Service:Train number,Service:Completely cancelled,Service:Partly cancelled,Service:Maximum delay,Stop:RDT-ID,Stop:Station code,Stop:Station name,Stop:Arrival time,Stop:Arrival delay,Stop:Arrival cancelled,Stop:Departure time,Stop:Departure delay,Stop:Departure cancelled,Stop:Platform change,Stop:Planned platform,Stop:Actual platform
+19491673,2026-10-29,Stoptrein,Arriva,732284,false,false,25,177118992,VL,Venlo,,,,2026-10-29T23:29:00+01:00,22,false,false,1b,1b
+19491673,2026-10-29,Stoptrein,Arriva,732284,false,false,0,177118993,BR,Blerick,2026-10-29T23:31:00+01:00,22,false,2026-10-29T23:31:00+01:00,22,false,false,4,4
+19491673,2026-10-29,Stoptrein,Arriva,732284,false,false,0,177118994,VRY,Venray,2026-10-29T23:44:00+01:00,23,false,2026-10-29T23:45:00+01:00,23,false,false,2,2
+19491673,2026-10-29,Stoptrein,Arriva,732284,false,false,0,177118995,VLB,Vierlingsbeek,2026-10-29T23:50:00+01:00,23,false,2026-10-29T23:51:00+01:00,25,false,false,1,1
+19491673,2026-10-29,Stoptrein,Arriva,732284,false,false,0,177118996,BMR,Boxmeer,2026-10-29T23:56:00+01:00,25,false,2026-10-30T00:00:00+01:00,22,false,false,1,1
+19491673,2026-10-29,Stoptrein,Arriva,732284,false,false,0,177118997,CK,Cuijk,2026-10-30T00:07:00+01:00,24,false,2026-10-30T00:08:00+01:00,24,false,false,1,1
+19491673,2026-10-29,Stoptrein,Arriva,732284,false,false,0,177118998,MMLH,Mook-Molenhoek,2026-10-30T00:12:00+01:00,25,false,2026-10-30T00:12:00+01:00,25,false,false,2,2
+19491673,2026-10-29,Stoptrein,Arriva,732284,false,false,0,177118999,NMH,Nijmegen Heyendaal,2026-10-30T00:18:00+01:00,24,false,2026-10-30T00:19:00+01:00,24,false,false,2,2
+19491673,2026-10-29,Stoptrein,Arriva,732284,false,false,0,177119000,NM,Nijmegen,2026-10-30T00:22:00+01:00,24,false,,,,false,1b,1b
