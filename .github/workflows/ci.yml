@@ -1,0 +1,84 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Frontend typecheck, build and tests
+        run: |
+          npm run build
+          npx vitest run
+      - name: Rust format
+        run: cargo fmt --all -- --check
+      - name: Clippy
+        run: cargo clippy --locked --workspace --all-targets -- -D warnings
+      - name: Rust tests (fixtures only, no network writes, no credentials)
+        run: cargo test --locked --workspace
+      - name: Dependency audit
+        run: |
+          cargo install cargo-audit --locked --version 0.23.0
+          cargo audit
+      - name: Build NSIS installer
+        # Signed updater artifacts are made only by tools/release.ps1 (the signing key never leaves the maintainer's PC).
+        run: npx tauri build --bundles nsis --config '{"bundle":{"createUpdaterArtifacts":false}}'
+      - name: Installer smoke test (silent per-user install, CLI help, uninstall)
+        shell: pwsh
+        run: |
+          $setup = Get-ChildItem target/release/bundle/nsis/*-setup.exe | Select-Object -First 1
+          "Installer: $($setup.Name)  size: $([math]::Round($setup.Length/1MB,2)) MB"
+          Start-Process $setup.FullName -ArgumentList '/S' -Wait
+          $exe = Get-ChildItem "$env:LOCALAPPDATA\OV Refund\ov-refund.exe","$env:LOCALAPPDATA\Programs\OV Refund\ov-refund.exe" -ErrorAction SilentlyContinue | Select-Object -First 1
+          if (-not $exe) { throw "installed exe not found" }
+          & $exe.FullName diagnose
+          $scheduleOutFile = Join-Path $env:TEMP "ovrefund-schedule-$([guid]::NewGuid()).out"
+          $scheduleErrFile = "$scheduleOutFile.err"
+          $scheduleProcess = Start-Process -FilePath $exe.FullName -ArgumentList @('install-schedule', '14') -Wait -PassThru -NoNewWindow -RedirectStandardOutput $scheduleOutFile -RedirectStandardError $scheduleErrFile
+          $scheduleExit = $scheduleProcess.ExitCode
+          $scheduleOutput = @((Get-Content -LiteralPath $scheduleOutFile -ErrorAction SilentlyContinue) + (Get-Content -LiteralPath $scheduleErrFile -ErrorAction SilentlyContinue))
+          "install-schedule exit=$scheduleExit output:"
+          $scheduleOutput | ForEach-Object { "$_" }
+          Remove-Item -LiteralPath $scheduleOutFile,$scheduleErrFile -Force -ErrorAction SilentlyContinue
+          if ($scheduleExit -eq 0) {
+            $tasks = @(Get-ScheduledTask | Where-Object { $_.Actions.Execute -contains $exe.FullName })
+            if ($tasks.Count -ne 1) { throw "expected exactly one scheduled task for the installed exe" }
+            $task = $tasks[0]
+          } elseif (($scheduleOutput -join "`n") -match 'Windows does not allow OV Refund to create a scheduled task') {
+            "Task Scheduler refusal is handled as an optional scheduling limitation."
+            $task = $null
+          } else {
+            throw "schedule installation failed unexpectedly (exit $scheduleExit)"
+          }
+          $un = Get-ChildItem (Split-Path $exe.FullName) -Filter uninstall.exe | Select-Object -First 1
+          Start-Process $un.FullName -ArgumentList '/S' -Wait
+          Start-Sleep 3
+          if ($task -and (Get-ScheduledTask -TaskName $task.TaskName -TaskPath $task.TaskPath -ErrorAction SilentlyContinue)) { throw "scheduled task not removed by uninstaller" }
+      - name: Checksums
+        shell: pwsh
+        run: |
+          Get-ChildItem target/release/bundle/nsis/*-setup.exe | ForEach-Object { "$((Get-FileHash $_ -Algorithm SHA256).Hash.ToLower())  $($_.Name)" } | Out-File -Encoding ascii target/release/bundle/nsis/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ov-refund-windows
+          retention-days: 7  # unsigned test build; releases come from tools/release.ps1
+          path: |
+            target/release/bundle/nsis/*-setup.exe
+            target/release/bundle/nsis/SHA256SUMS.txt
+
